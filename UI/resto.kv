@@ -1,0 +1,129 @@
+ScreenManager:
+    FirstWindow:
+    SecondWindow:
+    ResultWindow:
+
+<FirstWindow>:
+    name: "welcome"
+    orientation: 'vertical'
+
+    MDFloatLayout:
+        md_bg_color:(157/255,209/255,239/255,1)
+        radius:[25,25,0,0]
+
+        #canvas.after:
+            #Color:
+                #rgba: [1, 0, 0, 1]
+            #Line:
+                #width: 1  # Set the width of the border
+                #rectangle: (50, 50, self.width *0.8, self.height *0.082)
+
+        MDSwitch:
+            id: switch
+            pos_hint: {"center_x": 0.45}
+            track_color_inactive: "white"
+            track_color_active: "grey"
+            thumb_color_inactive: "black"
+            size_hint: 0.8, 0.082
+            padding: dp(0)
+            on_active: root.on_act() if root.counter == 0 else root.on_inact()
+            #style: app.theme_cls.material_style = "M3"
+
+        MDLabel:
+            id: Location
+            text: "Let's find you!"
+            pos_hint: {"center_x": 0.45}
+            halign: "center"
+            font_name: "arial"
+            font_size_hint: "10"
+            size_hint: 1, 0.06
+            padding: dp(70), dp(0), dp(30), dp(30)
+            theme_text_color: "Secondary"
+
+        Image:
+            source: "images/resto_.png"
+            size_hint: 0.45, 0.45
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDLabel:
+            text: "Find Restaurant Near you"
+            pos_hint: {"y": 0.42}
+            font_name: "calibri"
+            font_size_hint: "10"
+            size_hint: 1, 0.06
+            halign: "center"
+
+<SecondWindow>:
+    name: "search_resto"
+    orientation: 'vertical'
+    outer_opacity: 0
+    tap_size: 120
+    d_tap_size: 100
+    opa: 0
+
+    MDFloatLayout:
+        md_bg_color:(157/255,209/255,239/255,1)
+        radius:[25,25,0,0]
+
+        canvas.after:
+        #Outer circle
+            Color:
+                rgba: [58/255, 47/255, 48/255] + [root.outer_opacity]
+            RoundedRectangle:
+                radius: [root.tap_size/2.5, ]
+                size: [root.tap_size, root.tap_size]
+                pos: root.pos[0] + root.size[0]/2 - root.tap_size/2, root.pos[1] + root.size[1]/4.5 - root.tap_size/2
+
+        #inner circle
+            #Color:
+                #rgba: [255/255, 0/255, 0/255, 1]
+            #RoundedRectangle:
+                #radius: [root.d_tap_size/2.5, ]
+                #size: [root.d_tap_size, root.d_tap_size]
+                #pos: root.pos[0] + root.size[0]/2 - root.d_tap_size/2, root.pos[1] + root.size[1]/4.5 - root.d_tap_size/2
+
+        MDLabel:
+            id: tap_label
+            text: "Tap to search"
+            color: [0, 0, 0, root.opa]
+            pos_hint: {"center_x": 0.5, "center_y": 0.33}
+            halign: "center"
+            font_name: "RobotoLight"
+
+
+    MDFloatLayout:
+        MDFloatingActionButton:
+            icon: "radiobox-blank"
+            icon_size: "60sp"
+            pos: root.pos[0] + root.size[0]/2 - root.d_tap_size/2.9, root.pos[1] + root.size[1]/4.5 - root.d_tap_size/2.9
+            #size_hint: [0.1, 0.13]
+            md_bg_color: "red"
+            radius: [root.d_tap_size/2.5, ]
+            on_press: root.just_blink()
+
+<ResultWindow>:
+    name: "search_result"
+
+    MDBoxLayout:
+        id: empty
+        orientation: "vertical"
+        md_bg_color:(157/255,209/255,239/255,1)
+        radius:[25,25,0,0]
+
+        MDTopAppBar:
+            title: "Result"
+            halign: "center"
+            type: "top"
+            elevation: 2
+            left_action_items: [["arrow-left", lambda x: root.callback(x)]]
+
+        MDScrollView:
+            pos_hint: {"center_x": 0.5}
+            MDList:
+                id: container
+                padding: "24dp"
+                spacing:"12dp"
+
+    MDFloatLayout:
+        id: info
+        orientation: "vertical"
