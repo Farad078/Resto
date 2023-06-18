@@ -1,5 +1,8 @@
-import requests, json
-from creds import Api_key
+import requests, json, os, sys
+import Backend
+
+path = os.getcwd()
+sys.path.append(path)
 
 
 class ApiConnect:
@@ -12,7 +15,7 @@ class ApiConnect:
     def connect_google_api(self, lat, lon):
         # Connect to Google Api
         url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lon}&radius=5000&types" \
-              f"=restaurant&key={Api_key}"
+              f"=restaurant&key={Backend.creds.Api_key}"
         response = requests.request("GET", url)
         self.payload = {}
         self.headers = {}
