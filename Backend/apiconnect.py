@@ -1,4 +1,5 @@
 import requests, json
+from creds import Api_key
 
 
 class ApiConnect:
@@ -11,7 +12,7 @@ class ApiConnect:
     def connect_google_api(self, lat, lon):
         # Connect to Google Api
         url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lon}&radius=5000&types" \
-              f"=restaurant&key=AIzaSyAAQ-pmz6ncFGZuXi3_eOYAJfOzo19Kc_c "
+              f"=restaurant&key={Api_key}"
         response = requests.request("GET", url)
         self.payload = {}
         self.headers = {}
