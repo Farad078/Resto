@@ -49,8 +49,10 @@ class SecondWindow(MDScreen):
 
     if platform == "android" or "ios":
         get_gps = Locate()
-        lat = get_gps.gps_locate()[0]
-        lon = get_gps.gps_locate()[1]
+        # lat = get_gps.gps_locate()[0]
+        # lon = get_gps.gps_locate()[1]
+        lat = "9.0567"
+        lon = "7.4969"
     else:
         lat = "9.0567"
         lon = "7.4969"
